@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{842A359A-FC4C-405C-B0FB-23BDE8DF6C8E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MarineDeliveryWinService.Entity</RootNamespace>
+    <AssemblyName>MarineDeliveryWinService.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ARShipTo.cs" />
+    <Compile Include="Attachment.cs" />
+    <Compile Include="AttachmentResult.cs" />
+    <Compile Include="Count.cs" />
+    <Compile Include="INSiteBillingItemSyncFlag.cs" />
+    <Compile Include="Carrier.cs" />
+    <Compile Include="Company.cs" />
+    <Compile Include="DeliveryTicket.cs" />
+    <Compile Include="DocMessage.cs" />
+    <Compile Include="DOIGetToUpdate.cs" />
+    <Compile Include="Drivers.cs" />
+    <Compile Include="INSite.cs" />
+    <Compile Include="INSiteBillingItem.cs" />
+    <Compile Include="INSiteBillingItemDeletedTrx.cs" />
+    <Compile Include="INSiteProdCont.cs" />
+    <Compile Include="INSiteProdContDeletedTrx.cs" />
+    <Compile Include="INSiteProdContSyncFlag.cs" />
+    <Compile Include="INSiteTank.cs" />
+    <Compile Include="INSiteTankProductAPI.cs" />
+    <Compile Include="INSiteTankProducts.cs" />
+    <Compile Include="InSiteTankSubCompartments.cs" />
+    <Compile Include="INSiteTankVolume.cs" />
+    <Compile Include="INSiteTankVolumeDetails.cs" />
+    <Compile Include="JSONParam.cs" />
+    <Compile Include="LoginUser.cs" />
+    <Compile Include="MarineAppSalesPLUButtons.cs" />
+    <Compile Include="MarineDelivery.cs" />
+    <Compile Include="MarineDeliveryDetails.cs" />
+    <Compile Include="MarineLoc.cs" />
+    <Compile Include="MarineLocType.cs" />
+    <Compile Include="MarineRegion.cs" />
+    <Compile Include="MarineShipment.cs" />
+    <Compile Include="MarineShipmentDetail.cs" />
+    <Compile Include="MarineSyncFlag.cs" />
+    <Compile Include="MeterTicket.cs" />
+    <Compile Include="OrderAttachment.cs" />
+    <Compile Include="OrderHdr.cs" />
+    <Compile Include="OrderItem.cs" />
+    <Compile Include="OrderItemComponent.cs" />
+    <Compile Include="OrderNote.cs" />
+    <Compile Include="OrderStatusHistory.cs" />
+    <Compile Include="Person.cs" />
+    <Compile Include="PersonPhone.cs" />
+    <Compile Include="PersonPhoneDeletedTrx.cs" />
+    <Compile Include="ProdCont.cs" />
+    <Compile Include="Products.cs" />
+    <Compile Include="Results.cs" />
+    <Compile Include="ServiceURL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShipDoc.cs" />
+    <Compile Include="ShipDocItem.cs" />
+    <Compile Include="ShipDocItemComp.cs" />
+    <Compile Include="ShipDocItemReading.cs" />
+    <Compile Include="ShipDocItemReadingDtl.cs" />
+    <Compile Include="ShipDocItemVessel.cs" />
+    <Compile Include="Substitutes.cs" />
+    <Compile Include="SubstitutesDeletedTrx.cs" />
+    <Compile Include="SubstitutesSyncFlag.cs" />
+    <Compile Include="SyncDeletedTrx.cs" />
+    <Compile Include="TankChart.cs" />
+    <Compile Include="TankChartDetail.cs" />
+    <Compile Include="TankChartDetailDeletedTrx.cs" />
+    <Compile Include="TankChartDetailSyncFlag.cs" />
+    <Compile Include="TankChartKeel.cs" />
+    <Compile Include="TankChartTrim.cs" />
+    <Compile Include="TankType.cs" />
+    <Compile Include="UOM.cs" />
+    <Compile Include="UOMType.cs" />
+    <Compile Include="Vehicle.cs" />
+    <Compile Include="VehicleCompartments.cs" />
+    <Compile Include="VehicleSubCompartments.cs" />
+    <Compile Include="VehicleSubCompartmentsDeletedTrx.cs" />
+    <Compile Include="Vessel.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
