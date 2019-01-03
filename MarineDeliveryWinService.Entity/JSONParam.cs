@@ -187,6 +187,15 @@ namespace MarineDeliveryWinService.Entity
     {
         public List<Products> ProductList = new List<Products>();
     }
+    public class SalesContractSalesAliasJSONParam
+    {
+        public SalesContractSalesAliasDetails SalesContractSalesAlias = new SalesContractSalesAliasDetails();
+    }
+    public class SalesContractSalesAliasDetails
+    {
+        public List<SalesContractSalesAlias> SalesContractSalesAliasList = new List<SalesContractSalesAlias>();
+    }
+
     public class UOMTypeJSONParam
     {
         public UOMTypeDetails UOMType = new UOMTypeDetails();

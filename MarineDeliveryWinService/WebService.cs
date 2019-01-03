@@ -176,6 +176,7 @@ namespace MarineDeliveryWinService
                     try
                     {
                         UpdateProducts();
+                        UpdateSalesContractSalesAlias();
                     }
                     catch (Exception ex)
                     {
@@ -2771,6 +2772,90 @@ namespace MarineDeliveryWinService
             }
         }
 
+        public static void UpdateSalesContractSalesAlias()
+        {
+            try
+            {
+                string GetSalesContractSalesAlias = new WebClient().DownloadString(ServiceURL.GetSalesContractSalesAlias);
+                List<SalesContractSalesAlias> lstSalesContractSalesAlias = JsonConvert.DeserializeObject<List<SalesContractSalesAlias>>(GetSalesContractSalesAlias);
+                Logging.WriteLog("Function Called UpdateSalesContractSalesAlias - Count " + lstSalesContractSalesAlias.Count.ToString(), EventLogEntryType.Error);
+                var jsonSerialiser = new JavaScriptSerializer() { MaxJsonLength = 999999999 };
+
+                if (lstSalesContractSalesAlias.Count() > 0)
+                {
+
+                    SalesContractSalesAliasJSONParam JsonParamValue = new SalesContractSalesAliasJSONParam();
+                    SalesContractSalesAliasDetails SalesContractSalesAliasDetails = new SalesContractSalesAliasDetails();
+
+
+                    SalesContractSalesAliasDetails.SalesContractSalesAliasList = lstSalesContractSalesAlias.Select(s => (new SalesContractSalesAlias
+                    {
+                        SysTrxNo = s.SysTrxNo,
+                        CompanyID = s.CompanyID,
+                        ContractDescr = s.ContractDescr.EncodeString(),
+                        ContractID = s.ContractID.EncodeString(),
+                        StartDate = s.StartDate,
+                        EndDate = s.EndDate,
+                        SalesAliasID = s.SalesAliasID,
+                        ShiptoID = s.ShiptoID,
+                        StandardAcctID = s.StandardAcctID,
+                        SysTrxLine = s.SysTrxLine,
+                        VendorProductxRef = s.VendorProductxRef.EncodeString()
+                    })).ToList();
+
+                    JsonParamValue.SalesContractSalesAlias = SalesContractSalesAliasDetails;
+
+                    string jsonperVal = JsonConvert.SerializeObject(JsonParamValue, Formatting.None, new JsonSerializerSettings
+                    {
+                        NullValueHandling = NullValueHandling.Ignore
+                    });
+
+                    ParamList paramList = new ParamList();
+
+
+                    parameter paramVal = new parameter();
+
+                    paramVal.name = "JsonValue";
+                    paramVal.value = jsonperVal.ToString().Replace("\\\\", "");
+
+                    paramList.Params.Add(paramVal);
+
+                    var jsonVal = jsonSerialiser.Serialize(paramList);
+                    jsonVal = jsonVal.Replace("Params", "params");
+
+
+                    string url = ServiceURL.UpdateSalesContractSalesAlias + "&";
+                    var request = (HttpWebRequest)HttpWebRequest.Create(url);
+                    request.ContentType = "application/json; charset=utf-8";
+                    request.Method = "POST";
+                    request.Accept = "application/json; charset=utf-8";
+
+                    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                    {
+                        streamWriter.Write(jsonVal);
+                    }
+                    var httpResponse = (HttpWebResponse)request.GetResponse();
+                    using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                    {
+                        var result = streamReader.ReadToEnd();
+                        List<Results> lsResult = JsonConvert.DeserializeObject<List<Results>>(result);
+                        if (lsResult != null)
+                        {
+                            if (lsResult[0].StatusNew.ToString().ToLower() != "success")
+                            {
+                                Logger.WriteErrorLog(string.Format("{0} - {1} ", "UpdateSalesContractSalesAlias", lsResult[0].Reason));
+                            }
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteErrorLog(string.Format("{0} - {1} ", "UpdateSalesContractSalesAlias", ex.Message));
+            }
+        }
+
         ///// <summary>
         ///// UpdateUOMType
         ///// Function to Update UOMType
@@ -5348,7 +5433,8 @@ namespace MarineDeliveryWinService
                             OrdHdr.ReceivingContact = lstOrderHdr[i].ReceivingContact;
                             OrdHdr.ReceivingContactID = lstOrderHdr[i].ReceivingContactID;
                             OrdHdr.LastModifiedUser = lstOrderHdr[i].LastModifiedUser;
-                            orderStatusID = lstOrderHdr[i].OrderStatusID == null ? 0 : lstOrderHdr[i].OrderStatusID;
+                            OrdHdr.Contracts = lstOrderHdr[i].Contracts;
+                            orderStatusID = lstOrderHdr[i].OrderStatusID <= 0 ? 0 : lstOrderHdr[i].OrderStatusID;
 
                             JsonParamValue.OrderHdrList.Add(OrdHdr);
 
@@ -5386,6 +5472,7 @@ namespace MarineDeliveryWinService
                                     OrdItem.ClientID = lstOrderItemsNew[j].ClientID;
                                     OrdItem.PONo = !string.IsNullOrEmpty(lstOrderItemsNew[j].PONo) ? lstOrderItemsNew[j].PONo.EncodeString() : null;
                                     OrdItem.BillToShiptoID = lstOrderItemsNew[j].BillToShiptoID;
+                                    OrdItem.VendorProductxRef = lstOrderItemsNew[j].VendorProductxRef;
                                     JsonParamValue.OrderItemList.Add(OrdItem);
                                 }
                             }
@@ -6939,12 +7026,12 @@ namespace MarineDeliveryWinService
 
 
                                 CloudBlockBlob blockBlob = subDirectory.GetBlockBlobReference(dr["FileDescr"].ToString());
-                              
+
                                 using (var stream = new MemoryStream((byte[])dr["DataFile"], writable: true))
                                 {
-                                    blockBlob.UploadFromStream(stream);                                   
+                                    blockBlob.UploadFromStream(stream);
                                 }
-                               
+
                                 if (!string.IsNullOrEmpty(blockBlob.StorageUri.ToString()))
                                 {
                                     using (DataHandler MarineDataHandler = new DataHandler(Common.ConnectionType.MarineDelivery))
@@ -6959,8 +7046,8 @@ namespace MarineDeliveryWinService
                                         MarineDataHandler.AddParameter("FilePath", blockBlob.StorageUri.PrimaryUri.ToString());
                                         //Logging.WriteLog("UpdateOrderNotesAttachment before update ", EventLogEntryType.Information);
                                         resultArgs = MarineDataHandler.Fetch(QueryCommands.Master.UpdateOrderAttachment, Common.CommandType.StroeProcedure);
-                                        
-                                        if(!resultArgs.Success)
+
+                                        if (!resultArgs.Success)
                                         {
                                             Logging.WriteLog($"UpdateOrderNotesAttachment - {resultArgs.Source.Rows[0]["Reason"].ToString()} ", EventLogEntryType.Information);
                                         }

@@ -260,6 +260,9 @@ namespace MarineDeliveryWinService.Entity
         public static String DeleteSalesPLUButtons = ConfigurationManager.AppSettings["APIURL"].ToString() + ConfigurationManager.AppSettings["CloudAPIName"].ToString() + "/_proc/MN_DeleteMarineAppSalesPLUButtons?" + ConfigurationManager.AppSettings["CloudAPIKEY"].ToString();
         public static String UpdateSalesPLUButtonsDeletedSyncFlag = ConfigurationManager.AppSettings["APIURL"].ToString() + ConfigurationManager.AppSettings["ClientAPIName"].ToString() + "/_proc/MN_UpdateSyncFlagSalesPLUButtonsDeletedTrx";
 
-       
+
+        public static String GetSalesContractSalesAlias  = ConfigurationManager.AppSettings["APIURL"].ToString() + ConfigurationManager.AppSettings["ClientAPIName"].ToString() + "/_proc/MN_GetSalesContractSalesAlias?" + ConfigurationManager.AppSettings["ClientAPIKEY"].ToString();
+        public static String UpdateSalesContractSalesAlias = ConfigurationManager.AppSettings["APIURL"].ToString() + ConfigurationManager.AppSettings["CloudAPIName"].ToString() + "/_proc/MN_updateSalesContractSalesAlias?" + ConfigurationManager.AppSettings["CloudAPIKEY"].ToString();
+
     }
 }

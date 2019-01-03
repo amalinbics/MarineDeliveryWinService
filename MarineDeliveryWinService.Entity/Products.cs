@@ -29,5 +29,6 @@ namespace MarineDeliveryWinService.Entity
         public char? BIActiveMarneDelvApp { get; set; }
         public int? TemperatureCorrectID { get; set; }
         public char? IsBulk { get; set; }
+       
     }
 }

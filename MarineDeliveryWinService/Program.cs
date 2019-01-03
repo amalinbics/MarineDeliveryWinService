@@ -13,27 +13,27 @@ namespace MarineDeliveryWinService
         /// </summary>
         static void Main()
         {
-            //ServiceBase[] ServicesToRun;
-            //ServicesToRun = new ServiceBase[]
-            //{
-            //    new MarineDeliveryWinService()
-            //};
-            //ServiceBase.Run(ServicesToRun);
+            ServiceBase[] ServicesToRun;
+            ServicesToRun = new ServiceBase[]
+            {
+                new MarineDeliveryWinService()
+            };
+            ServiceBase.Run(ServicesToRun);
 
-#if(!DEBUG)
-                                                                        ServiceBase[] ServicesToRun;
-                                                                        ServicesToRun = new ServiceBase[] 
-                                                                        { 
-                                                                            new DeliveryStreamCloudService1() 
-                                                                        };
-                                                                        ServiceBase.Run(ServicesToRun);
-#else
-            WebService.UpdateDeliveryDetails();
+//#if(!DEBUG)
+//                                                                        ServiceBase[] ServicesToRun;
+//                                                                        ServicesToRun = new ServiceBase[] 
+//                                                                        { 
+//                                                                            new DeliveryStreamCloudService1() 
+//                                                                        };
+//                                                                        ServiceBase.Run(ServicesToRun);
+//#else
+//            WebService.UpdateSalesContractSalesAlias();
 
-            //here Process is my Service function
-            //that will run when my service onstart is call
-            //you need to call your own method or function name here instead of Process();
-#endif
+//            //here Process is my Service function
+//            //that will run when my service onstart is call
+//            //you need to call your own method or function name here instead of Process();
+//#endif
         }
     }
 }

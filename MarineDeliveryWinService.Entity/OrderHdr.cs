@@ -39,5 +39,6 @@ namespace MarineDeliveryWinService.Entity
         public int? ReceivingContactID { get; set; }
         public string LastModifiedUser { get; set; }
         public int OrderStatusID { get; set; }
+        public string Contracts { get; set; }
     }
 }

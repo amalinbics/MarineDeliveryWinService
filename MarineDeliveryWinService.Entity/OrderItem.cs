@@ -28,5 +28,6 @@ namespace MarineDeliveryWinService.Entity
         public string PONo { get; set; }
         public string ClientID { get; set; }
         public int? BillToShiptoID { get; set; }
+        public string VendorProductxRef { get; set; }
     }
 }
